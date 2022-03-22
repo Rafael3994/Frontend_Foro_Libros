@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, Navigate } from "react-router-dom";
 import UserService from "./../../services/user.service";
+import Swal from 'sweetalert2'
+
 
 function Login(props) {
 
@@ -17,10 +19,18 @@ function Login(props) {
         if (response === true) {
             return setIsLogged(true);
         } else if (response.request.status === 401) {
-            return alert(response.request.response);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: response.request.response,
+            })
         } else if (response.request.status === 400) {
             const res = JSON.parse(response.request.response);
-            return alert(res.message);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: res.message,
+            })
         }
     }
 

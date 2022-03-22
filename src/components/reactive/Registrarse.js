@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, Navigate, Outlet } from "react-router-dom";
 import UserService from "./../../services/user.service";
+import Swal from 'sweetalert2'
 
 
 function Registrarse(props) {
@@ -19,10 +20,20 @@ function Registrarse(props) {
                 formData.emailRegister, formData.passwordRegister,
                 formData.nameRegister);
             if (response.request.status === 401) {
-                return alert(response.request.response);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: response.request.response,
+                })
+                // return alert(response.request.response);
             } else if (response.request.status === 400) {
                 const res = JSON.parse(response.request.response);
-                return alert(res.message);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: res.message,
+                })
+                // return alert(res.message);
             } else if (response.request.status === 200){
                 localStorage.setItem("userToken", JSON.stringify(response.data.tokens[response.data.tokens.length-1].token));
                 return setIsLogged(true);
