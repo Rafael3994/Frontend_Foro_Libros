@@ -1,24 +1,54 @@
-import React from 'react';
-import { Link, Navigate, Outlet } from "react-router-dom";
-
+import React, { useState } from 'react';
+import { Link, Navigate } from "react-router-dom";
+import UserService from "./../../services/user.service";
 
 function Login(props) {
+
+    const [isLogged, setIsLogged] = useState(false);
+    const [formData, setFormData] = useState({
+        emailLogin: "",
+        passwordLogin: ""
+    })
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const response = await UserService.login(formData.emailLogin, formData.passwordLogin);
+        if (response === true) {
+            return setIsLogged(true);
+        } else if (response.request.status === 401) {
+            return alert(response.request.response);
+        } else if (response.request.status === 400) {
+            const res = JSON.parse(response.request.response);
+            return alert(res.message);
+        }
+    }
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
+
     return (
-        <div name="login" className='mx-5'>
-            <a name='iniciarSesion'></a>
-            <br></br>
-            <h2>Iniciar Sesion</h2>
-            <br></br>
-            <form action=''>
-                <label>Email: </label>
-                <input type="emailLogin" className="form-control" id="emailLogin" />
+        <div>
+            {isLogged && (
+                <Navigate to="/user" replace={true} />
+            )}
+            <div name="login" className='mx-5'>
+                <a name='iniciarSesion'></a>
                 <br></br>
-                <label>Contraseña: </label>
-                <input type="password" className="form-control" id="passwordLogin" />
+                <h2>Iniciar Sesion</h2>
                 <br></br>
-                <button type="submit" className="btn btn-primary margin-right-7">Login</button>
-            </form>
-            <br></br><br></br>
+                <form onSubmit={handleSubmit}>
+                    <label>Email: </label>
+                    <input value={formData.emailLogin} onChange={handleChange} type="email" className="form-control" name="emailLogin" />
+                    <br></br>
+                    <label>Contraseña: </label>
+                    <input value={formData.passwordLogin} onChange={handleChange} type="password" className="form-control" name="passwordLogin" />
+                    <br></br>
+                    <button type="submit" className="btn btn-primary margin-right-7">Login</button>
+                </form>
+                <br></br><br></br>
+            </div>
         </div>
     );
 }
