@@ -11,16 +11,17 @@ function Login(props) {
     })
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        UserService.login(formData.emailLogin, formData.passwordLogin)
-            .then((res) => {
-                if (res) {
-                    setIsLogged(true);
-                } else {
-                    alert('Datos incorrectos o usuario invalido.')
-                }
-            })
+        const response = await UserService.login(formData.emailLogin, formData.passwordLogin);
+        if (response) {
+            return setIsLogged(true);
+        } else if (response.request.status === 401) {
+            return alert(response.request.response);
+        } else if (response.request.status === 400) {
+            const res = JSON.parse(response.request.response);
+            return alert(res.message);
+        }
     }
 
     const handleChange = (e) => {

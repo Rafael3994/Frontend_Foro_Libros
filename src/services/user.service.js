@@ -39,12 +39,13 @@ class UserService {
                 "password": password
             }).then(response => {
                 if (response.data.tokens) {
-                    console.log(response.data.tokens.length-1);
                     localStorage.setItem("userToken", JSON.stringify(response.data.tokens[response.data.tokens.length-1].token));
+                    return Promise.resolve(true);
+                } else {
+                    return Promise.resolve(response);
                 }
-                return true;
             }).catch((error) => {
-                return false
+                return error;
             });
             return res;
         } catch (error) {
