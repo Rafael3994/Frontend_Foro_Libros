@@ -3,10 +3,8 @@ import authHeader from './auth-header';
 
 // TODO: cambiar
 const API_URL = 'http://localhost:5000/user/';
-// const API_URL = ""
 
 class UserService {
-
     getCurrentUser() {
         return JSON.parse(localStorage.getItem('userToken'));;
     }
