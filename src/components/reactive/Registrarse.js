@@ -12,17 +12,21 @@ function Registrarse(props) {
         emailRegister: ""
     });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = async (e) => {
         try {
-            UserService.register(
+            e.preventDefault();
+            const response = await UserService.register(
                 formData.emailRegister, formData.passwordRegister,
-                formData.nameRegister)
-                .then((res) => {
-                    if (res) {
-                        setIsLogged(true);
-                    }
-                })
+                formData.nameRegister);
+            if (response.request.status === 401) {
+                return alert(response.request.response);
+            } else if (response.request.status === 400) {
+                const res = JSON.parse(response.request.response);
+                return alert(res.message);
+            } else if (response.request.status === 200){
+                localStorage.setItem("userToken", JSON.stringify(response.data.tokens[response.data.tokens.length-1].token));
+                return setIsLogged(true);
+            }
         } catch (error) {
 
         }

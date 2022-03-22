@@ -59,11 +59,11 @@ class UserService {
                 "name": name,
                 "email": email,
                 "password": password
-            }).then(() => {
-                return this.login(email, password);
+            }).then((res) => {
+                console.log(res);
+                return Promise.resolve(res);
             }).catch((err) => {
-                console.log(err)
-                return false;
+                return Promise.resolve(err);
             });
         } catch (error) {
         }

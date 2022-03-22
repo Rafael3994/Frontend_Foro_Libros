@@ -14,7 +14,7 @@ function Login(props) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const response = await UserService.login(formData.emailLogin, formData.passwordLogin);
-        if (response) {
+        if (response === true) {
             return setIsLogged(true);
         } else if (response.request.status === 401) {
             return alert(response.request.response);
