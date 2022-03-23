@@ -22,7 +22,6 @@ function NavbarWithoutLogin(props) {
                     </div>
                 </div>
             </nav>
-            <Outlet />
         </div>
     );
 }

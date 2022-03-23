@@ -1,5 +1,7 @@
 import axios from "axios";
 import authHeader from './auth-header';
+import Swal from 'sweetalert2'
+import { Navigate } from "react-router-dom";
 
 // TODO: cambiar
 const API_URL = 'http://localhost:5000/user/';
@@ -37,7 +39,7 @@ class UserService {
                 "password": password
             }).then(response => {
                 if (response.data.tokens) {
-                    localStorage.setItem("userToken", JSON.stringify(response.data.tokens[response.data.tokens.length-1].token));
+                    localStorage.setItem("userToken", JSON.stringify(response.data.tokens[response.data.tokens.length - 1].token));
                     return Promise.resolve(true);
                 } else {
                     return Promise.resolve(response);
@@ -67,14 +69,15 @@ class UserService {
         }
     }
 
-    logout() {
+    async logout() {
         try {
-            return axios.get(API_URL + 'logout', { headers: authHeader() })
-                .then(() => {
-                    console.log('BORRO');
-                    localStorage.removeItem('userToken');
-                    return true;
-                }).catch(() => { return false });
+            const response = await axios.get(API_URL + 'logout', { headers: authHeader() })
+            if (response.request.status === 200) {
+                localStorage.removeItem('userToken');
+                return true;
+            } else if (response.request.status === 401) {
+                return false;
+            }
         } catch (error) {
         }
     }
