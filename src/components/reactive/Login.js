@@ -41,7 +41,7 @@ function Login(props) {
     return (
         <div>
             {isLogged && (
-                <Navigate to="/libro" replace={true} />
+                <Navigate to="/libros" replace={true} />
             )}
             <div name="login" className='mx-5'>
                 <a name='iniciarSesion'></a>

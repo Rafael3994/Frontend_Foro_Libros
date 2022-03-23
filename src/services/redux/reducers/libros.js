@@ -4,15 +4,6 @@ import {
     FETCH_LIBROS_FAIL
 } from "./../actions/types.js";
 
-
-// const initialState = [
-//     {
-//         libro: 'libro1'
-//     }, {
-//         libro: 'libro2'
-//     }
-// ];
-
 export function librosReducer (libros = [], action) {
     const { type, payload } = action; 
 

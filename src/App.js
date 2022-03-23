@@ -3,14 +3,16 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import './App.css';
 import Home from "./components/presentational/Home";
-import PaginaLibro from "./components/reactive/PaginaLibro";
+import PaginaLibros from "./components/reactive/PaginaLibros";
+import Libro from "./components/reactive/Libro";
 
 function App() {
   return (
     <BrowserRouter >
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/libro" element={<PaginaLibro />} />
+        <Route path="/libros" element={<PaginaLibros />} />
+        <Route path="/libro/:id" element={<Libro />} />
       </Routes>
     </BrowserRouter >
   );

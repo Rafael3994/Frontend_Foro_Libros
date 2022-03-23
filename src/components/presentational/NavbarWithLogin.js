@@ -24,7 +24,7 @@ function NavbarWithLogin(props) {
                     <div className="collapse navbar-collapse" id="navbarResponsive">
                         <ul className="navbar-nav ms-auto py-4 py-lg-0">
                             {/* TODO: poner enlaces */}
-                            <li className="nav-item nav-link px-lg-3 py-3 py-lg-4" ><Link to='/libro' className="navbar-brand mx-3">Libros</Link></li>
+                            <li className="nav-item nav-link px-lg-3 py-3 py-lg-4" ><Link to='/libros' className="navbar-brand mx-3">Libros</Link></li>
                             <li className="nav-item nav-link px-lg-3 py-3 py-lg-4" ><a href="#" className="navbar-brand mx-3">Perfil</a></li>
                             <li className="nav-item nav-link px-lg-3 py-3 py-lg-4" ><a onClick={logout} className="pointer-cursor navbar-brand mx-3">Logout</a></li>
                         </ul>
