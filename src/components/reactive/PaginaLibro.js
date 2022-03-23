@@ -3,6 +3,7 @@ import { Link, Navigate } from "react-router-dom";
 import NavbarWithLogin from '../presentational/NavbarWithLogin';
 import Banner from '../presentational/Banner';
 import UserService from "../../services/user.service";
+import TodosLibros from './TodosLibros';
 
 function PaginaLibro(props) {
 
@@ -15,7 +16,7 @@ function PaginaLibro(props) {
             )}
             <NavbarWithLogin setIsToken={setIsToken}/>
             <Banner />
-            <h1>Libros</h1>
+            <TodosLibros />
         </div>
     );
 }
