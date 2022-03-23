@@ -50,7 +50,7 @@ function Registrarse(props) {
     return (
         <div>
             {isLogged && (
-                <Navigate to="/user" replace={true} />
+                <Navigate to="/libro" replace={true} />
             )}
             <div className='mx-5'>
                 <a name="registrarse" />
