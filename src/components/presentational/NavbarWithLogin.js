@@ -6,7 +6,7 @@ import UserService from './../../services/user.service';
 function NavbarWithLogin(props) {
 
     const logout = async () => {
-        const result = UserService.logout();
+        const result = await UserService.logout();
         if (result) {
             props.setIsToken(false);
         }

@@ -15,18 +15,18 @@ function Libro(props) {
     const dispatch = useDispatch();
     const { libros } = useSelector(state => state);
 
-    useEffect(() => {
-        try {
-            // let response = await LibroService.allLibros();
-            // if (typeof response === 'string' || response instanceof String) {
-            //     setWithoutLibros(response);
-            // } else if (response.length > 0) {
-            //     // console.log(response);
-            //     dispatch(fetchLibros(response));
-            // }
-        } catch (error) {
-        }
-    }, []);
+    // useEffect(() => {
+    //     try {
+    //         // let response = await LibroService.allLibros();
+    //         // if (typeof response === 'string' || response instanceof String) {
+    //         //     setWithoutLibros(response);
+    //         // } else if (response.length > 0) {
+    //         //     // console.log(response);
+    //         //     dispatch(fetchLibros(response));
+    //         // }
+    //     } catch (error) {
+    //     }
+    // }, []);
 
 
     return (

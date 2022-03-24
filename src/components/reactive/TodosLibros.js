@@ -20,7 +20,7 @@ function TodosLibros(props) {
         try {
             let response = await LibroService.allLibros();
             if (typeof response === 'string' || response instanceof String) {
-                setWithoutLibros(response);
+                // setWithoutLibros(response);
             } else if (response.length > 0) {
                 dispatch(fetchLibros(response));
             }
@@ -41,6 +41,7 @@ function TodosLibros(props) {
                 )
             }
             <div className='row container margin-auto mb-5'>
+                <p>Hay libros</p>
                 {
                     libros && (
                         libros.map((libro, i) => {
