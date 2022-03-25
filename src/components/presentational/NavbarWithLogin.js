@@ -1,14 +1,17 @@
 import React from 'react';
-import { Link, Navigate, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 import UserService from './../../services/user.service';
 
 function NavbarWithLogin(props) {
 
+    const navigate = useNavigate();
+
+
     const logout = async () => {
         const result = await UserService.logout();
         if (result) {
-            props.setIsToken(false);
+            navigate('/');
         }
     }
 
@@ -31,6 +34,7 @@ function NavbarWithLogin(props) {
                     </div>
                 </div>
             </nav>
+            <Outlet />
         </div>
     );
 }

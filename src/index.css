@@ -12241,7 +12241,6 @@ form {
 /* Cards */
 .containerCards {
   display: flex;
-  /* flex-wrap: wrap; */
   justify-content: center;
   justify-content: space-evenly;
   margin-top: 3em;
@@ -12263,6 +12262,27 @@ body {
   cursor: pointer;
 }
 
+/* Otros */
 .margin-auto {
   margin: auto;
+}
+
+.center {
+  text-align: center;
+}
+
+.dato {
+  font-size: 0.9em;
+  font-weight: normal;
+}
+
+.goBack {
+  height: 5em;
+  margin-top: 1em;
+  margin-left: 3.5em;
+}
+
+/* Caratula */
+.caratula {
+  height: 25em;
 }

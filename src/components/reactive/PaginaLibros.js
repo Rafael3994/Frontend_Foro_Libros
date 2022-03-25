@@ -7,7 +7,6 @@ import TodosLibros from './TodosLibros';
 
 function PaginaLibro(props) {
 
-    const [isLogged, setIsLogged] = useState(false);
     const [isToken, setIsToken] = useState(UserService.getCurrentUser() !== null);
 
     return (
@@ -17,7 +16,6 @@ function PaginaLibro(props) {
                     <Navigate to="/" />
                     :
                     <div>
-                        <NavbarWithLogin setIsToken={setIsToken} />
                         <Banner />
                         <TodosLibros />
                     </div>

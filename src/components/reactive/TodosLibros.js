@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector, useStore } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 
 import LibroService from "./../../services/libros.service"
@@ -12,15 +12,16 @@ import {
 
 function TodosLibros(props) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const { libros } = useSelector(state => state);
-
     const [withoutLibros, setWithoutLibros] = useState(null);
-
+    
     useEffect(async () => {
         try {
             let response = await LibroService.allLibros();
             if (typeof response === 'string' || response instanceof String) {
-                // setWithoutLibros(response);
+                setWithoutLibros(response);
             } else if (response.length > 0) {
                 dispatch(fetchLibros(response));
             }
@@ -28,6 +29,9 @@ function TodosLibros(props) {
         }
     }, []);
 
+    const verLibro = (e) => {
+        navigate('/libro/' + e.target.name);
+    }
 
     return (
         <div className='mx-5 mt-5'>
@@ -41,15 +45,13 @@ function TodosLibros(props) {
                 )
             }
             <div className='row container margin-auto mb-5'>
-                <p>Hay libros</p>
                 {
                     libros && (
                         libros.map((libro, i) => {
                             return <div key={i} className="col-md-3 mb-5">
                                 <div className="card">
-                                    <Link to={`/libro/${libro._id}`} className="navbar-brand mx-3" />
-                                    <img className="card-img-top" src={libro.caratula} alt={libro.nombre} />
-                                    <div className="card-body">
+                                    <img onClick={verLibro} className="card-img-top pointer-cursor" name={libro._id} src={libro.caratula} alt={libro.nombre} />
+                                    <div name={libro._id} className="card-body">
                                         <h5 className="card-title">{libro.nombre}</h5>
                                     </div>
                                 </div>

@@ -39,6 +39,7 @@ function Home(props) {
                             <SobreNosotros />
                             <Registrarse />
                         </div>
+                        // TODO: poner footer
                 )
             }
         </div >
