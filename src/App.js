@@ -6,6 +6,7 @@ import Home from "./components/presentational/Home";
 import PaginaLibros from "./components/reactive/PaginaLibros";
 import Libro from "./components/reactive/Libro";
 import NavbarWithLogin from "./components/presentational/NavbarWithLogin";
+import Capitulo from "./components/reactive/Capitulo";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="" element={<NavbarWithLogin />}>
           <Route index path="libros" element={<PaginaLibros />} />
           <Route path="libro/:id" element={<Libro />} />
+          <Route path="libro/:idLibro/:idCap" element={<Capitulo />} />
         </Route>
       </Routes>
     </BrowserRouter >

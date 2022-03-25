@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, Navigate, useNavigate } from "react-router-dom";
 import { Accordion } from 'react-bootstrap';
 
-
 import NavbarWithLogin from '../presentational/NavbarWithLogin';
 import Banner from '../presentational/Banner';
 import UserService from "../../services/user.service";
@@ -44,6 +43,11 @@ function Libro(props) {
         navigate('/libros');
     }
 
+    const verCapitulo = (e) => {
+        console.log(e.target.getAttribute('datavalue'));
+        navigate(`/libro/${id}/${e.target.getAttribute('datavalue')}`);
+    }
+
     return (
         <div>
             {
@@ -52,7 +56,7 @@ function Libro(props) {
                     :
                     isLoaded && (
                         <div>
-                            <NavbarWithLogin />
+                            {/* <NavbarWithLogin /> */}
                             <Banner />
                             <div >
                                 <img onClick={goBack} className="goBack pointer-cursor" src={require('./../../assets/img/flecha.png')} alt='flecha' />
@@ -75,52 +79,63 @@ function Libro(props) {
                                     </div>
                                 </div>
                             </div>
-
-
-
-                            {/* <Accordion>
-                                <Accordion.Item>
-                                    <Accordion.Header>Accordion Item #1</Accordion.Header>
-                                    <Accordion.Body>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                                        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                                        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-                                        est laborum.
-                                    </Accordion.Body>
-                                </Accordion.Item>
-                            </Accordion> */}
-
-
-
-
-
+                            <br></br><br></br>
                             <div className='mx-5 mt-3'>
                                 <Accordion defaultActiveKey="0">
                                     <Accordion.Item>
                                         <Accordion.Header><h2>Capitulos</h2></Accordion.Header>
                                         {
                                             libro.capitulos.length !== 0 ?
-                                            <Accordion.Body>
-                                                <ul className="list-group list-group-flush list-group-item-action">
-                                                    {
-                                                        libro.capitulos.map((capitulo, i) => {
-                                                            return <li key={i} className="list-group-item list-group-item-action">{capitulo.capitulo.nombreCap}</li>
-                                                        })
-                                                    }
-                                                </ul>
-                                            </Accordion.Body>
-                                            :
-                                            <Accordion.Body>
-                                                <p>No hay capitulos</p>
-                                            </Accordion.Body>
+                                                <Accordion.Body>
+                                                    <ul className="list-group list-group-flush list-group-item-action">
+                                                        {
+                                                            libro.capitulos.map((capitulo, i) => {
+                                                                console.log(capitulo._id);
+                                                                return <li onClick={verCapitulo} datavalue={capitulo._id} key={i} className="list-group-item list-group-item-action">{capitulo.capitulo.nombreCap}</li>
+                                                            })
+                                                        }
+                                                    </ul>
+                                                </Accordion.Body>
+                                                :
+                                                <Accordion.Body>
+                                                    <p>No hay capitulos</p>
+                                                </Accordion.Body>
+                                        }
+                                    </Accordion.Item>
+                                </Accordion>
+                            </div>
+
+                            <div className='mx-5 mt-3'>
+                                <Accordion defaultActiveKey="0">
+                                    <Accordion.Item>
+                                        <Accordion.Header><h2>Comentarios</h2></Accordion.Header>
+                                        {
+                                            libro.comentarios.length !== 0 ?
+                                                <Accordion.Body>
+                                                    <ul className="list-group list-group-flush">
+                                                        {
+
+                                                            libro.comentarios.map((comentarios, i) => {
+                                                                console.log(comentarios.comentario);
+                                                                return <div class="comment mt-4 text-justify float-left"> <img src="https://i.imgur.com/yTFUilP.jpg" alt="" class="rounded-circle" width="40" height="40" />
+                                                                    <h4>Jhon Doe</h4> <span>- {comentarios.comentario.fecha_publicacion.slice(0, 10)}</span> <br></br>
+                                                                    <p>{comentarios.comentario.comentarioDesc}</p>
+                                                                </div>
+                                                            })
+                                                        }
+                                                    </ul>
+                                                </Accordion.Body>
+                                                :
+                                                <Accordion.Body>
+                                                    <p>No hay comentarios</p>
+                                                </Accordion.Body>
                                         }
                                     </Accordion.Item>
                                 </Accordion>
                             </div>
                         </div>
+
+
                     )
             }
         </div >
