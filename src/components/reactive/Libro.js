@@ -2,25 +2,28 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Navigate, useNavigate } from "react-router-dom";
 import { Accordion } from 'react-bootstrap';
+import toast, { Toaster } from 'react-hot-toast';
+import Swal from 'sweetalert2'
 
-import NavbarWithLogin from '../presentational/NavbarWithLogin';
+
 import Banner from '../presentational/Banner';
-import UserService from "../../services/user.service";
-import TodosLibros from './TodosLibros';
 
+import UserService from "../../services/user.service";
 import LibroService from "./../../services/libros.service"
+
 import {
-    fetchLibros,
-    fetchLibrosSuccess,
-    fetchRentalsError
+    saveLibros,
+    deleteCommentLibro
 } from "./../../services/redux/actions/libros";
 
 function Libro(props) {
-    const { id } = useParams();
-    const { libros } = useSelector(state => state);
-
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const { id } = useParams();
+    const { libros, user } = useSelector(state => state);
+
+    const [changeComponent, setChangeComponent] = useState(false);
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [isToken, setIsToken] = useState(UserService.getCurrentUser() !== null);
@@ -35,9 +38,10 @@ function Libro(props) {
             })
             setLibro(libroFilter[0]);
             setIsLoaded(true);
+            setChangeComponent(false);
         } catch (error) {
         }
-    }, []);
+    }, [changeComponent]);
 
     const goBack = () => {
         navigate('/libros');
@@ -45,6 +49,33 @@ function Libro(props) {
 
     const verCapitulo = (e) => {
         navigate(`/libro/${id}/${e.target.getAttribute('datavalue')}`);
+    }
+
+    const deleteCommentAccion = async (e) => {
+        try {
+            // PONER LA CONFIRMACION 
+            Swal.fire({
+                title: '¿Segur@ que quieres eliminar el comentario?',
+                showDenyButton: true,
+                confirmButtonText: 'Yes',
+                denyButtonText: 'No',
+                customClass: {
+                    actions: 'my-actions',
+                    confirmButton: 'order-2',
+                    denyButton: 'order-3',
+                }
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    const response = await LibroService.deleteCommentLibro(id, e.target.getAttribute('idComentario'));
+                    let res = await LibroService.allLibros();
+                    dispatch(saveLibros(res));
+                    setChangeComponent(true);
+                    toast.success(response);
+                }
+            })
+        } catch (error) {
+
+        }
     }
 
     return (
@@ -56,6 +87,7 @@ function Libro(props) {
                     isLoaded && (
                         <div>
                             <Banner />
+                            <Toaster position="top-right" />
                             <div >
                                 <img onClick={goBack} className="goBack pointer-cursor" src={require('./../../assets/img/flecha.png')} alt='flecha' />
                             </div>
@@ -113,9 +145,23 @@ function Libro(props) {
                                                         {
 
                                                             libro.comentarios.map((comentarios, i) => {
-                                                                return <div className="comment mt-4 text-justify float-left"> <img src="https://i.imgur.com/yTFUilP.jpg" alt="" className="rounded-circle" width="40" height="40" />
-                                                                    <h4>Jhon Doe</h4> <span>- {comentarios.comentario.fecha_publicacion.slice(0, 10)}</span> <br></br>
+                                                                //TODO: Modificar back para encontrar user by id
+                                                                return <div key={i} className="comment mt-4 text-justify float-left">
+                                                                    {user.photo === null ?
+                                                                        <img src={require('./../../assets/img/perfil-empty.png')} alt="" className="rounded-circle" width="40" height="40" />
+                                                                        :
+                                                                        <img src="https://i.imgur.com/yTFUilP.jpg" alt="" className="rounded-circle" width="40" height="40" />
+                                                                    }
+                                                                    <h4>Name</h4> <span>- {comentarios.comentario.fecha_publicacion.slice(0, 10)}</span> <br></br>
                                                                     <p>{comentarios.comentario.comentarioDesc}</p>
+                                                                    {
+                                                                        comentarios.comentario.idUser === user._id && (
+                                                                            <div className='mb-2'>
+                                                                                <button className="pointer-cursor button btn btn-secondary btn-sm">Modificar</button>
+                                                                                <button onClick={deleteCommentAccion} idcomentario={comentarios._id} className="pointer-cursor button btn btn-secondary btn-sm">Eliminar</button>
+                                                                            </div>
+                                                                        )
+                                                                    }
                                                                 </div>
                                                             })
                                                         }

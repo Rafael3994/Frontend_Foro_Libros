@@ -12257,12 +12257,11 @@ body {
   user-select: none;
 }
 
-/* Pointer */
+/* Otros */
 .pointer-cursor {
   cursor: pointer;
 }
 
-/* Otros */
 .margin-auto {
   margin: auto;
 }
@@ -12332,5 +12331,11 @@ body {
 }
 
 
+/* Button */
+.button {
+  color: black !important;
+  background-color: whitesmoke !important;
+  margin-right: 4.2em;
+}
 
 
