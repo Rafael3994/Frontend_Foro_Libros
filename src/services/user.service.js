@@ -81,6 +81,20 @@ class UserService {
         } catch (error) {
         }
     }
+
+    getUser() {
+        try {
+            return axios.get(API_URL + 'getuser', { headers: authHeader() })
+                .then(response => {
+                    return Promise.resolve(response);
+                }).catch(error => {
+                    return Promise.reject(error);
+                })
+        } catch (error) {
+
+        }
+    }
+
 }
 
 export default new UserService();

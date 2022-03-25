@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-// import { errorReducer } from "./errors";
-// import rentalsReducer from "./pedidos";
 import { librosReducer } from "./libros";
+import { userReducer } from "./user";
 
 export default combineReducers({
-    libros: librosReducer
+    libros: librosReducer,
+    user: userReducer
 });

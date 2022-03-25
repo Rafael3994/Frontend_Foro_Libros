@@ -44,7 +44,6 @@ function Libro(props) {
     }
 
     const verCapitulo = (e) => {
-        console.log(e.target.getAttribute('datavalue'));
         navigate(`/libro/${id}/${e.target.getAttribute('datavalue')}`);
     }
 
@@ -56,7 +55,6 @@ function Libro(props) {
                     :
                     isLoaded && (
                         <div>
-                            {/* <NavbarWithLogin /> */}
                             <Banner />
                             <div >
                                 <img onClick={goBack} className="goBack pointer-cursor" src={require('./../../assets/img/flecha.png')} alt='flecha' />
@@ -90,7 +88,6 @@ function Libro(props) {
                                                     <ul className="list-group list-group-flush list-group-item-action">
                                                         {
                                                             libro.capitulos.map((capitulo, i) => {
-                                                                console.log(capitulo._id);
                                                                 return <li onClick={verCapitulo} datavalue={capitulo._id} key={i} className="list-group-item list-group-item-action">{capitulo.capitulo.nombreCap}</li>
                                                             })
                                                         }
@@ -116,8 +113,7 @@ function Libro(props) {
                                                         {
 
                                                             libro.comentarios.map((comentarios, i) => {
-                                                                console.log(comentarios.comentario);
-                                                                return <div class="comment mt-4 text-justify float-left"> <img src="https://i.imgur.com/yTFUilP.jpg" alt="" class="rounded-circle" width="40" height="40" />
+                                                                return <div className="comment mt-4 text-justify float-left"> <img src="https://i.imgur.com/yTFUilP.jpg" alt="" className="rounded-circle" width="40" height="40" />
                                                                     <h4>Jhon Doe</h4> <span>- {comentarios.comentario.fecha_publicacion.slice(0, 10)}</span> <br></br>
                                                                     <p>{comentarios.comentario.comentarioDesc}</p>
                                                                 </div>

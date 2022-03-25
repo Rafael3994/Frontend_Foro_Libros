@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, Navigate } from "react-router-dom";
 import NavbarWithLogin from '../presentational/NavbarWithLogin';
-import Banner from '../presentational/Banner';
+
 import UserService from "../../services/user.service";
+
+import Banner from '../presentational/Banner';
 import TodosLibros from './TodosLibros';
 
 function PaginaLibro(props) {

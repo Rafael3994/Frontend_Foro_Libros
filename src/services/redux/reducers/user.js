@@ -1,14 +1,14 @@
 import {
-    SAVE_LIBROS
+    SAVE_USER
 } from "./../actions/types.js";
 
-export function librosReducer (libros = [], action) {
+export function userReducer (user = [], action) {
     const { type, payload } = action; 
 
     switch (type) {
-        case SAVE_LIBROS:
+        case SAVE_USER:
             return payload;
         default:
-            return libros;
+            return user;
     }
 };

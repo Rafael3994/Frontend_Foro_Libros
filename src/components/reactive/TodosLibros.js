@@ -2,28 +2,33 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector, useStore } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
-
+import UserService from "../../services/user.service";
 import LibroService from "./../../services/libros.service"
 import {
-    fetchLibros,
-    fetchLibrosSuccess,
-    fetchRentalsError
+    saveLibros,
 } from "./../../services/redux/actions/libros";
+import {
+    saveUser,
+} from "./../../services/redux/actions/user";
 
 function TodosLibros(props) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { libros } = useSelector(state => state);
+    const { libros, user } = useSelector(state => state);
     const [withoutLibros, setWithoutLibros] = useState(null);
     
     useEffect(async () => {
         try {
+            let responseUser = await UserService.getUser();
+            if (responseUser.data) {
+                dispatch(saveUser(responseUser.data));
+            }
             let response = await LibroService.allLibros();
             if (typeof response === 'string' || response instanceof String) {
                 setWithoutLibros(response);
             } else if (response.length > 0) {
-                dispatch(fetchLibros(response));
+                dispatch(saveLibros(response));
             }
         } catch (error) {
         }
