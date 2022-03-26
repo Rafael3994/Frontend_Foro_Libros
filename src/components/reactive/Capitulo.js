@@ -72,8 +72,25 @@ function Capitulo(props) {
         }
     }
 
-    const editComentarioAccion = () => {
-
+    const editComentarioAccion = (e) => {
+        try {
+            Swal.fire({
+                title: 'Pon tu comentario.',
+                input: 'textarea',
+                inputValue: e.target.getAttribute('comment'),
+                showCancelButton: true
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    const response = await LibroService.editCommentCapitulo(idLibro, idCap, e.target.getAttribute('idcomentario'), result.value);
+                    let res = await LibroService.allLibros();
+                    dispatch(saveLibros(res));
+                    setChangeComponent(true);
+                    toast.success(response);
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const deleteCommentAccion = (e) => {

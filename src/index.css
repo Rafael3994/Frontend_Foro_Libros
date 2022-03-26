@@ -12311,7 +12311,8 @@ body {
   border-radius: 5px;
   padding-left: 40px;
   padding-right: 30px;
-  padding-top: 10px
+  padding-top: 10px;
+  word-wrap: break-word;
 }
 
 .comment h4,
