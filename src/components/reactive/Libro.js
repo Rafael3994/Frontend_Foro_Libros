@@ -5,7 +5,6 @@ import { Accordion } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
 import Swal from 'sweetalert2'
 
-
 import Banner from '../presentational/Banner';
 
 import UserService from "../../services/user.service";
@@ -160,7 +159,7 @@ function Libro(props) {
                                                     <ul className="list-group list-group-flush list-group-item-action">
                                                         {
                                                             libro.capitulos.map((capitulo, i) => {
-                                                                return <li onClick={verCapitulo} datavalue={capitulo._id} key={i} className="list-group-item list-group-item-action">{capitulo.capitulo.nombreCap}</li>
+                                                                return <li onClick={verCapitulo} datavalue={capitulo._id} key={i} className="pointer-cursor list-group-item list-group-item-action">{capitulo.capitulo.nombreCap}</li>
                                                             })
                                                         }
                                                     </ul>
@@ -193,7 +192,7 @@ function Libro(props) {
                                                                     {user.photo === null ?
                                                                         <img src={require('./../../assets/img/perfil-empty.png')} alt="" className="rounded-circle" width="40" height="40" />
                                                                         :
-                                                                        <img src="https://i.imgur.com/yTFUilP.jpg" alt="" className="rounded-circle" width="40" height="40" />
+                                                                        <img src="" alt="" className="rounded-circle" width="40" height="40" />
                                                                     }
                                                                     <h4>Name</h4> <span>- {comentarios.comentario.fecha_publicacion.slice(0, 10)}</span> <br></br>
                                                                     <p>{comentarios.comentario.comentarioDesc}</p>
@@ -209,9 +208,7 @@ function Libro(props) {
                                                             })
                                                         }
                                                     </ul>
-                                                    // </Accordion.Body>
                                                     :
-                                                    // <Accordion.Body>
                                                     <p>No hay comentarios</p>
                                             }
                                         </Accordion.Body>
