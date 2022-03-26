@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import toast, { Toaster } from 'react-hot-toast';
 import { Accordion } from 'react-bootstrap';
+import Swal from 'sweetalert2'
 
 import UserService from "../../services/user.service";
 
@@ -16,6 +17,7 @@ import {
 function PaginaLibro(props) {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [isToken, setIsToken] = useState(UserService.getCurrentUser() !== null);
 
@@ -63,14 +65,27 @@ function PaginaLibro(props) {
                 formData.photoEdit = '';
             }
             // Hacer peticion
-            // console.log("handleSubmit ", formData);
-            let responseUser = await UserService.upadate(formData.nameEdit, formData.emailEdit, formData.passwordEdit, formData.photoEdit);
-            if (responseUser) {
-                toast.success('Perfil modificado.');
-                setChangeComponent(true);
-            } else {
-                toast.error('No se pudo modificar el perfil.');
-            }
+            Swal.fire({
+                title: '¿Segur@ que quieres modificar los datos de tu cuenta?',
+                showDenyButton: true,
+                confirmButtonText: 'Yes',
+                denyButtonText: 'No',
+                customClass: {
+                    actions: 'my-actions',
+                    confirmButton: 'order-2',
+                    denyButton: 'order-3',
+                }
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    let responseUser = await UserService.upadate(formData.nameEdit, formData.emailEdit, formData.passwordEdit, formData.photoEdit);
+                    if (responseUser) {
+                        toast.success('Perfil modificado.');
+                        setChangeComponent(true);
+                    } else {
+                        toast.error('No se pudo modificar el perfil.');
+                    }
+                }
+            })
         } catch (error) {
             console.log(error);
         }
@@ -82,7 +97,30 @@ function PaginaLibro(props) {
     }
 
     const eliminarUser = () => {
-        console.log('eliminarUser');
+        try {
+            Swal.fire({
+                title: '¿Segur@ que quieres eliminar tu cuenta de usuario?',
+                showDenyButton: true,
+                confirmButtonText: 'Yes',
+                denyButtonText: 'No',
+                customClass: {
+                    actions: 'my-actions',
+                    confirmButton: 'order-2',
+                    denyButton: 'order-3',
+                }
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    // TODO: Implementar mas adelante, borrar los comentarios del usuario borrado.
+                    const response = await UserService.deleteUser();
+                    if (response) {
+                        localStorage.removeItem('userToken');
+                        navigate('/');
+                    }
+                }
+            })
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const buscarImagen = (e) => {

@@ -54,13 +54,11 @@ class UserService {
 
     register(email, password, name) {
         try {
-            console.log(API_URL)
             return axios.post(API_URL + "register", {
                 "name": name,
                 "email": email,
                 "password": password
             }).then((res) => {
-                console.log(res);
                 return Promise.resolve(res);
             }).catch((err) => {
                 return Promise.resolve(err);
@@ -90,6 +88,19 @@ class UserService {
                 }).catch(error => {
                     return Promise.reject(error);
                 })
+        } catch (error) {
+
+        }
+    }
+
+    deleteUser() {
+        try {
+            return axios.delete(API_URL + "deleteuser", { headers: authHeader() })
+                .then((response) => {
+                    return Promise.resolve(true);
+                }).catch(() => {
+                    return Promise.reject(false);
+                });
         } catch (error) {
 
         }
