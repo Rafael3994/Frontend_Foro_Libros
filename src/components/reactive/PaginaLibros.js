@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link, Navigate } from "react-router-dom";
-import NavbarWithLogin from '../presentational/NavbarWithLogin';
+import React, { useState } from 'react';
+import {Navigate } from "react-router-dom";
 
 import UserService from "../../services/user.service";
 
