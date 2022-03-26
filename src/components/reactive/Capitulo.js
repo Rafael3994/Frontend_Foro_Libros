@@ -6,6 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import Swal from 'sweetalert2';
 
 import Banner from '../presentational/Banner';
+import Footer from '../presentational/Footer';
 
 import UserService from "../../services/user.service";
 import LibroService from "./../../services/libros.service"
@@ -59,7 +60,6 @@ function Capitulo(props) {
                 showCancelButton: true
             }).then(async (result) => {
                 if (result.isConfirmed) {
-                    console.log(result.value);
                     const response = await LibroService.addCommentCapitulo(idLibro, idCap, result.value);
                     let res = await LibroService.allLibros();
                     dispatch(saveLibros(res));
@@ -176,6 +176,7 @@ function Capitulo(props) {
                             </Accordion.Item>
                         </Accordion>
                     </div>
+                    <Footer />
                 </div>
             )
     );

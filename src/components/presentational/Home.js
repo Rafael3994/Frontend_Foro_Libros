@@ -8,6 +8,7 @@ import SobreNosotros from "./SobreNosotros";
 import Registrarse from './../reactive/Registrarse';
 
 import UserService from "./../../services/user.service";
+import Footer from './Footer';
 
 
 function Home(props) {
@@ -38,8 +39,8 @@ function Home(props) {
                             <Login />
                             <SobreNosotros />
                             <Registrarse />
+                            <Footer />
                         </div>
-                        // TODO: poner footer
                 )
             }
         </div >

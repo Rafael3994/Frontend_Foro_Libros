@@ -5,6 +5,7 @@ import NavbarWithLogin from '../presentational/NavbarWithLogin';
 import UserService from "../../services/user.service";
 
 import Banner from '../presentational/Banner';
+import Footer from '../presentational/Footer';
 import TodosLibros from './TodosLibros';
 
 function PaginaLibro(props) {
@@ -20,6 +21,7 @@ function PaginaLibro(props) {
                     <div>
                         <Banner />
                         <TodosLibros />
+                        <Footer />
                     </div>
             }
         </div>
