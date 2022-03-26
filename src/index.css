@@ -12281,6 +12281,11 @@ body {
   margin-left: 3.5em;
 }
 
+.btn-añadir {
+  margin-top: 0.1em;
+  height: 2em;
+}
+
 /* Caratula */
 .caratula {
   height: 25em;

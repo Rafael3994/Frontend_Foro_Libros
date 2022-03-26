@@ -30,6 +30,17 @@ class LibroService {
             });
     }
 
+    addCommentLibro(idLibro, comentarioDesc) {
+        return axios.post(API_URL + "comentariolibro/newcomentario", {
+            'idLibro': idLibro,
+            'comentarioDesc': comentarioDesc
+        }, { headers: authHeader() })
+            .then((response) => {
+                return Promise.resolve(response.data);
+            }).catch(() => {
+                return Promise.reject(false);
+            });
+    }
 
 }
 

@@ -12,8 +12,7 @@ import UserService from "../../services/user.service";
 import LibroService from "./../../services/libros.service"
 
 import {
-    saveLibros,
-    deleteCommentLibro
+    saveLibros
 } from "./../../services/redux/actions/libros";
 
 function Libro(props) {
@@ -53,7 +52,6 @@ function Libro(props) {
 
     const deleteCommentAccion = async (e) => {
         try {
-            // PONER LA CONFIRMACION 
             Swal.fire({
                 title: '¿Segur@ que quieres eliminar el comentario?',
                 showDenyButton: true,
@@ -74,8 +72,25 @@ function Libro(props) {
                 }
             })
         } catch (error) {
-
+            console.log(error);
         }
+    }
+
+    const añadirComentarioAccion = () => {
+        Swal.fire({
+            title: 'Pon tu comentario.',
+            input: 'textarea',
+            showCancelButton: true
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                // console.log(result.value);
+                const response = await LibroService.addCommentLibro(id, result.value);
+                let res = await LibroService.allLibros();
+                dispatch(saveLibros(res));
+                setChangeComponent(true);
+                toast.success(response);
+            }
+        });
     }
 
     return (
@@ -138,9 +153,12 @@ function Libro(props) {
                                 <Accordion defaultActiveKey="0">
                                     <Accordion.Item>
                                         <Accordion.Header><h2>Comentarios</h2></Accordion.Header>
-                                        {
-                                            libro.comentarios.length !== 0 ?
-                                                <Accordion.Body>
+                                        <Accordion.Body>
+                                            <div className='d-flex justify-content-center'>
+                                                <img onClick={añadirComentarioAccion} className='btn-añadir pointer-cursor' src={require('./../../assets/img/añadir.png')}></img>
+                                            </div>
+                                            {
+                                                libro.comentarios.length !== 0 ?
                                                     <ul className="list-group list-group-flush">
                                                         {
 
@@ -166,12 +184,12 @@ function Libro(props) {
                                                             })
                                                         }
                                                     </ul>
-                                                </Accordion.Body>
-                                                :
-                                                <Accordion.Body>
+                                                    // </Accordion.Body>
+                                                    :
+                                                    // <Accordion.Body>
                                                     <p>No hay comentarios</p>
-                                                </Accordion.Body>
-                                        }
+                                            }
+                                        </Accordion.Body>
                                     </Accordion.Item>
                                 </Accordion>
                             </div>
