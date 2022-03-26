@@ -18,7 +18,7 @@ class UserService {
                 "photo": photo
             }, { headers: authHeader() }).then(response => {
                 if (response) {
-                    return true;
+                    return { response: response.data, status: true };
                 } else {
                     return false;
                 }

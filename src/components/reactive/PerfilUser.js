@@ -78,11 +78,13 @@ function PaginaLibro(props) {
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     let responseUser = await UserService.upadate(formData.nameEdit, formData.emailEdit, formData.passwordEdit, formData.photoEdit);
-                    if (responseUser) {
+                    if (responseUser.status) {
+                        console.log(responseUser.response);
+                        localStorage.setItem("userToken", JSON.stringify(responseUser.response.tokens[responseUser.response.tokens.length - 1].token));
                         toast.success('Perfil modificado.');
                         setChangeComponent(true);
                     } else {
-                        toast.error('No se pudo modificar el perfil.');
+                        toast.error(responseUser.response.data.message);
                     }
                 }
             })
