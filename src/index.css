@@ -12241,7 +12241,6 @@ form {
 /* Cards */
 .containerCards {
   display: flex;
-  /* flex-wrap: wrap; */
   justify-content: center;
   justify-content: space-evenly;
   margin-top: 3em;
@@ -12258,7 +12257,7 @@ body {
   user-select: none;
 }
 
-/* Pointer */
+/* Otros */
 .pointer-cursor {
   cursor: pointer;
 }
@@ -12266,3 +12265,82 @@ body {
 .margin-auto {
   margin: auto;
 }
+
+.center {
+  text-align: center;
+}
+
+.dato {
+  font-size: 0.9em;
+  font-weight: normal;
+}
+
+.goBack {
+  height: 5em;
+  margin-top: 1em;
+  margin-left: 3.5em;
+}
+
+.btn-añadir {
+  margin-top: 0.1em;
+  height: 2em;
+}
+
+/* Caratula */
+.caratula {
+  height: 25em;
+}
+
+/* Comments */
+@media(min-width:568px) {
+  .end {
+      margin-left: auto
+  }
+}
+
+@media(max-width:768px) {
+  #post {
+      width: 100%
+  }
+}
+
+.comment {
+  border: 1px solid rgba(16, 46, 46, 1);
+  background-color: rgba(245, 206, 243, 0.7);
+  float: left;
+  border-radius: 5px;
+  padding-left: 40px;
+  padding-right: 30px;
+  padding-top: 10px
+}
+
+.comment h4,
+.comment span,
+.darker h4,
+.darker span {
+  display: inline
+}
+
+.comment p,
+.comment span,
+.darker p,
+.darker span {
+  color: black;
+}
+
+.comment h1,
+.comment h4 {
+  margin-left: 0.8em;
+  color: black;
+  font-weight: bold
+}
+
+
+/* Button */
+.button {
+  color: black !important;
+  background-color: whitesmoke !important;
+  margin-right: 4.2em;
+}
+
+

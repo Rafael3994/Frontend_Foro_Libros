@@ -16,7 +16,6 @@ function Banner(props) {
 
     }
 
-
     return (
         <div className='banner'>
             <a name="home"></a>
