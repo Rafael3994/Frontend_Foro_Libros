@@ -77,20 +77,45 @@ function Libro(props) {
     }
 
     const añadirComentarioAccion = () => {
-        Swal.fire({
-            title: 'Pon tu comentario.',
-            input: 'textarea',
-            showCancelButton: true
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                // console.log(result.value);
-                const response = await LibroService.addCommentLibro(id, result.value);
-                let res = await LibroService.allLibros();
-                dispatch(saveLibros(res));
-                setChangeComponent(true);
-                toast.success(response);
-            }
-        });
+        try {
+            Swal.fire({
+                title: 'Pon tu comentario.',
+                input: 'textarea',
+                showCancelButton: true
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    // console.log(result.value);
+                    const response = await LibroService.addCommentLibro(id, result.value);
+                    let res = await LibroService.allLibros();
+                    dispatch(saveLibros(res));
+                    setChangeComponent(true);
+                    toast.success(response);
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const editComentarioAccion = (e) => {
+        try {
+            Swal.fire({
+                title: 'Pon tu comentario.',
+                input: 'textarea',
+                inputValue: e.target.getAttribute('comment'),
+                showCancelButton: true
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    const response = await LibroService.editCommentLibro(id, e.target.getAttribute('idcomentario'), result.value);
+                    let res = await LibroService.allLibros();
+                    dispatch(saveLibros(res));
+                    setChangeComponent(true);
+                    toast.success(response);
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -175,7 +200,7 @@ function Libro(props) {
                                                                     {
                                                                         comentarios.comentario.idUser === user._id && (
                                                                             <div className='mb-2'>
-                                                                                <button className="pointer-cursor button btn btn-secondary btn-sm">Modificar</button>
+                                                                                <button onClick={editComentarioAccion} idcomentario={comentarios._id} comment={comentarios.comentario.comentarioDesc} className="pointer-cursor button btn btn-secondary btn-sm">Modificar</button>
                                                                                 <button onClick={deleteCommentAccion} idcomentario={comentarios._id} className="pointer-cursor button btn btn-secondary btn-sm">Eliminar</button>
                                                                             </div>
                                                                         )

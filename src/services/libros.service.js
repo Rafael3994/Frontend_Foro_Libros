@@ -42,6 +42,19 @@ class LibroService {
             });
     }
 
+    editCommentLibro(idLibro, idComentario, comentarioDesc) {
+        return axios.put(API_URL + "comentariolibro/editcomentario", {
+            'idLibro': idLibro,
+            'idComentario': idComentario,
+            'comentarioDesc': comentarioDesc
+        }, { headers: authHeader() })
+            .then((response) => {
+                return Promise.resolve(response.data);
+            }).catch(() => {
+                return Promise.reject(false);
+            });
+    }
+
 }
 
 export default new LibroService;
