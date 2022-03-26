@@ -76,8 +76,30 @@ function Capitulo(props) {
 
     }
 
-    const deleteCommentAccion = () => {
-
+    const deleteCommentAccion = (e) => {
+        try {
+            Swal.fire({
+                title: '¿Segur@ que quieres eliminar el comentario?',
+                showDenyButton: true,
+                confirmButtonText: 'Yes',
+                denyButtonText: 'No',
+                customClass: {
+                    actions: 'my-actions',
+                    confirmButton: 'order-2',
+                    denyButton: 'order-3',
+                }
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    const response = await LibroService.deleteCommenCapitulo(idLibro, idCap, e.target.getAttribute('idcomentario'));
+                    let res = await LibroService.allLibros();
+                    dispatch(saveLibros(res));
+                    setChangeComponent(true);
+                    toast.success(response);
+                }
+            })
+        } catch (error) {
+            console.log(error);
+        }
     }
 
 

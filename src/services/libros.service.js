@@ -30,6 +30,22 @@ class LibroService {
             });
     }
 
+    deleteCommenCapitulo(idLibro, idCapitulo, idComment) {
+        return axios.delete(API_URL + "comentariocap/deletecomentario", {
+            headers: authHeader(),
+            data: {
+                idLibro: idLibro,
+                idCapitulo: idCapitulo,
+                idComentario: idComment
+            }
+        })
+            .then((response) => {
+                return Promise.resolve(response.data);
+            }).catch(() => {
+                return Promise.reject(false);
+            });
+    }
+
     addCommentLibro(idLibro, comentarioDesc) {
         return axios.post(API_URL + "comentariolibro/newcomentario", {
             'idLibro': idLibro,

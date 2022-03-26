@@ -63,7 +63,7 @@ function Libro(props) {
                 }
             }).then(async (result) => {
                 if (result.isConfirmed) {
-                    const response = await LibroService.deleteCommentLibro(id, e.target.getAttribute('idComentario'));
+                    const response = await LibroService.deleteCommentLibro(id, e.target.getAttribute('idcomentario'));
                     let res = await LibroService.allLibros();
                     dispatch(saveLibros(res));
                     setChangeComponent(true);
