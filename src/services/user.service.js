@@ -1,7 +1,5 @@
 import axios from "axios";
 import authHeader from './auth-header';
-import Swal from 'sweetalert2'
-import { Navigate } from "react-router-dom";
 
 // TODO: cambiar
 const API_URL = 'http://localhost:5000/user/';
@@ -11,11 +9,13 @@ class UserService {
         return JSON.parse(localStorage.getItem('userToken'));;
     }
 
-    async upadate(password, nameUser) {
+    async upadate(name, email, password, photo) {
         try {
-            const res = await axios.put(API_URL + 'update', {
+            const res = await axios.put(API_URL + 'edituser', {
+                'name': name,
+                'email': email,
                 "password": password,
-                "nameUser": nameUser
+                "photo": photo
             }, { headers: authHeader() }).then(response => {
                 if (response) {
                     return true;
@@ -23,7 +23,7 @@ class UserService {
                     return false;
                 }
             }).catch((error) => {
-                return false
+                return error;
             });
             return res;
 
@@ -54,13 +54,11 @@ class UserService {
 
     register(email, password, name) {
         try {
-            console.log(API_URL)
             return axios.post(API_URL + "register", {
                 "name": name,
                 "email": email,
                 "password": password
             }).then((res) => {
-                console.log(res);
                 return Promise.resolve(res);
             }).catch((err) => {
                 return Promise.resolve(err);
@@ -90,6 +88,19 @@ class UserService {
                 }).catch(error => {
                     return Promise.reject(error);
                 })
+        } catch (error) {
+
+        }
+    }
+
+    deleteUser() {
+        try {
+            return axios.delete(API_URL + "deleteuser", { headers: authHeader() })
+                .then((response) => {
+                    return Promise.resolve(true);
+                }).catch(() => {
+                    return Promise.reject(false);
+                });
         } catch (error) {
 
         }

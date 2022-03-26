@@ -12281,9 +12281,17 @@ body {
   margin-left: 3.5em;
 }
 
+.mr-3em{
+  margin-right: 3em;
+}
+
 .btn-añadir {
   margin-top: 0.1em;
   height: 2em;
+}
+
+.ml-5em {
+  margin-left: 5em;
 }
 
 /* Caratula */
@@ -12362,9 +12370,9 @@ body {
 
 .footer-minimal img {
   height: 2.5em;
-  /* margin-right: 3em; */
 }
 
-.mr-3em{
-  margin-right: 3em;
+/* Perfil */
+.perfil-img {
+  height: 12em;
 }
