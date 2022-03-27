@@ -79,7 +79,6 @@ function PaginaLibro(props) {
                 if (result.isConfirmed) {
                     let responseUser = await UserService.upadate(formData.nameEdit, formData.emailEdit, formData.passwordEdit, formData.photoEdit);
                     if (responseUser.status) {
-                        console.log(responseUser.response);
                         localStorage.setItem("userToken", JSON.stringify(responseUser.response.tokens[responseUser.response.tokens.length - 1].token));
                         toast.success('Perfil modificado.');
                         setChangeComponent(true);

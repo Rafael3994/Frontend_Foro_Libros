@@ -1,16 +1,24 @@
 import React from 'react';
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import UserService from './../../services/user.service';
+
+import {
+    removeIsAdmin,
+} from "./../../services/redux/actions/session";
 
 function NavbarWithLogin(props) {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
+    
 
     const logout = async () => {
         const result = await UserService.logout();
         if (result) {
+            dispatch(removeIsAdmin());
             navigate('/');
         }
     }
