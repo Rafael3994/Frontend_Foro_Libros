@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 import { Link, Navigate } from "react-router-dom";
-import UserService from "./../../services/user.service";
 import Swal from 'sweetalert2'
 
+import UserService from "./../../services/user.service";
 
 function Login(props) {
 
-    const [isLogged, setIsLogged] = useState(false);
+    // const [isLogged, setIsLogged] = useState(false);
     const [formData, setFormData] = useState({
         emailLogin: "",
         passwordLogin: ""
     })
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         const response = await UserService.login(formData.emailLogin, formData.passwordLogin);
         if (response === true) {
-            return setIsLogged(true);
+            // return setIsLogged(true);
+            return props.setIsToken(UserService.getCurrentUser() !== null)
         } else if (response.request.status === 401) {
             Swal.fire({
                 icon: 'error',
@@ -41,9 +41,9 @@ function Login(props) {
     // TODO: al hacer login que me envie a arriba de la pagina
     return (
         <div>
-            {isLogged && (
+            {/* {isLogged && (
                 <Navigate to="/libros" replace={true} />
-            )}
+            )} */}
             <div name="login" className='mx-5'>
                 <a name='iniciarSesion'></a>
                 <br></br>

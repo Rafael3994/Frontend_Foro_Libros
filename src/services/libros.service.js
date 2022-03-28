@@ -15,6 +15,49 @@ class LibroService {
             });
     }
 
+    deleteLibro(idLibro) {
+        return axios.delete(API_URL + "deletelibro", {
+            headers: authHeader(),
+            data: {
+                idLibro: idLibro
+            }
+        })
+            .then((response) => {
+                return Promise.resolve(response.data);
+            }).catch(() => {
+                return Promise.reject(false);
+            });
+    }
+
+    addLibro(nombre, autor, descripcion, fecha_publicacion, caratula, paginas, capitulosArray) {
+        // console.log(capitulosArray);
+        const capitulos = [];
+        capitulosArray.forEach(cap => {
+            let newCapitulo = {
+                capitulo: {
+                    nombreCap: cap
+                }
+            }
+            capitulos.push(newCapitulo)
+        });
+        // console.log(capitulos);
+        return axios.post(API_URL + "newlibro", {
+            nombre: nombre,
+            autor: autor,
+            descripcion: descripcion,
+            fecha_publicacion: fecha_publicacion,
+            caratula: caratula,
+            capitulos: capitulos,
+            paginas: paginas
+        }, { headers: authHeader() })
+            .then((response) => {
+                return Promise.resolve(true);
+            }).catch(() => {
+                return Promise.reject(false);
+            });
+    }
+
+
     deleteCommentLibro(idLibro, idComment) {
         return axios.delete(API_URL + "comentariolibro/deletecomentario", {
             headers: authHeader(),

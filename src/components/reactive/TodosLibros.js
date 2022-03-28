@@ -2,28 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import UserService from "../../services/user.service";
 import LibroService from "./../../services/libros.service"
 import {
     saveLibros,
 } from "./../../services/redux/actions/libros";
-import {
-    saveUser,
-} from "./../../services/redux/actions/user";
 
 function TodosLibros(props) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { libros, user } = useSelector(state => state);
+    const { libros } = useSelector(state => state);
     const [withoutLibros, setWithoutLibros] = useState(null);
-    
+
     useEffect(async () => {
         try {
-            let responseUser = await UserService.getUser();
-            if (responseUser.data) {
-                dispatch(saveUser(responseUser.data));
-            }
             let response = await LibroService.allLibros();
             if (typeof response === 'string' || response instanceof String) {
                 setWithoutLibros(response);
@@ -43,15 +35,15 @@ function TodosLibros(props) {
             <h2 className='mb-5'>Libros</h2>
             {
                 withoutLibros && (
-                    <di>
+                    <div>
                         <br></br>
                         <h3>{withoutLibros}</h3>
-                    </di>
+                    </div>
                 )
             }
             <div className='row container margin-auto mb-5'>
                 {
-                    libros && (
+                    typeof libros !== 'string' && (
                         libros.map((libro, i) => {
                             return <div key={i} className="col-md-3 mb-5">
                                 <div className="card">

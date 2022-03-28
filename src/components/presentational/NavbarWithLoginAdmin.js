@@ -8,7 +8,7 @@ import {
     removeIsAdmin,
 } from "./../../services/redux/actions/session";
 
-function NavbarWithLogin(props) {
+function NavbarWithLoginAdmin(props) {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -35,8 +35,9 @@ function NavbarWithLogin(props) {
                     <div className="collapse navbar-collapse" id="navbarResponsive">
                         <ul className="navbar-nav ms-auto py-4 py-lg-0">
                             {/* TODO: poner enlaces */}
-                            <li className="nav-item nav-link px-lg-3 py-3 py-lg-4" ><Link to='/libros' className="navbar-brand mx-3">Libros</Link></li>
-                            <li className="nav-item nav-link px-lg-3 py-3 py-lg-4" ><Link to="/perfil" className="navbar-brand mx-3">Perfil</Link></li>
+                            <li className="nav-item nav-link px-lg-3 py-3 py-lg-4" ><Link to='/admin/libros' className="navbar-brand mx-3">Libros</Link></li>
+                            <li className="nav-item nav-link px-lg-3 py-3 py-lg-4" ><Link to="/admin/user" className="navbar-brand mx-3">Usuarios</Link></li>
+                            <li className="nav-item nav-link px-lg-3 py-3 py-lg-4" ><Link to="/admin/perfil" className="navbar-brand mx-3">Perfil</Link></li>
                             <li className="nav-item nav-link px-lg-3 py-3 py-lg-4" ><a onClick={logout} className="pointer-cursor navbar-brand mx-3">Logout</a></li>
                         </ul>
                     </div>
@@ -47,4 +48,4 @@ function NavbarWithLogin(props) {
     );
 }
 
-export default NavbarWithLogin;
+export default NavbarWithLoginAdmin;

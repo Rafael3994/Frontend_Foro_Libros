@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import {Navigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import UserService from "../../services/user.service";
 
@@ -10,6 +11,8 @@ import TodosLibros from './TodosLibros';
 function PaginaLibro(props) {
 
     const [isToken, setIsToken] = useState(UserService.getCurrentUser() !== null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const { session } = useSelector(state => state);
 
     return (
         <div>
@@ -17,11 +20,14 @@ function PaginaLibro(props) {
                 !isToken ?
                     <Navigate to="/" />
                     :
-                    <div>
-                        <Banner />
-                        <TodosLibros />
-                        <Footer />
-                    </div>
+                    session.isAdmin ?
+                        <Navigate to="/admin/libros" />
+                        :
+                        <div>
+                            <Banner />
+                            <TodosLibros />
+                            <Footer />
+                        </div>
             }
         </div>
     );
