@@ -27,6 +27,7 @@ function Home(props) {
     const navigate = useNavigate();
 
     const [isLoaded, setIsLoaded] = useState(false);
+    //TODO: para mas adelante meter el isToken en la store
     const [isToken, setIsToken] = useState(false);
 
     useEffect(async () => {

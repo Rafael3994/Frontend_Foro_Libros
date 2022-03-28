@@ -15,6 +15,21 @@ class LibroService {
             });
     }
 
+    deleteLibro(idLibro) {
+        return axios.delete(API_URL + "deletelibro", {
+            headers: authHeader(),
+            data: {
+                idLibro: idLibro
+            }
+        })
+            .then((response) => {
+                return Promise.resolve(response.data);
+            }).catch(() => {
+                return Promise.reject(false);
+            });
+    }
+
+
     deleteCommentLibro(idLibro, idComment) {
         return axios.delete(API_URL + "comentariolibro/deletecomentario", {
             headers: authHeader(),

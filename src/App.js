@@ -9,6 +9,7 @@ import Libro from "./components/reactive/Libro";
 import NavbarWithLogin from "./components/presentational/NavbarWithLogin";
 import Capitulo from "./components/reactive/Capitulo";
 import LibrosAdmin from "./components/reactive/LibrosAdmin";
+import NavbarWithLoginAdmin from "./components/presentational/NavbarWithLoginAdmin";
 
 function App() {
   return (
@@ -23,8 +24,9 @@ function App() {
           <Route path="libro/:idLibro/:idCap" element={<Capitulo />} />
         </Route>
         {/* Cambiar navbar */}
-        <Route path="" element={<NavbarWithLogin />}>
+        <Route path="" element={<NavbarWithLoginAdmin />}>
           <Route path="admin/libros" element={<LibrosAdmin />} />
+          <Route path="/admin/perfil" element={<PerfilUser />} />
         </Route>
       </Routes>
     </BrowserRouter >
