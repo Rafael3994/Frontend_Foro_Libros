@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import toast, { Toaster } from 'react-hot-toast';
 import Swal from 'sweetalert2'
@@ -18,7 +18,7 @@ function LibrosAdmin(props) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { libros } = useSelector(state => state);
+    const { libros, session } = useSelector(state => state);
     const [changeComponent, setChangeComponent] = useState(false);
 
     useEffect(async () => {
@@ -60,8 +60,7 @@ function LibrosAdmin(props) {
     }
 
     const newLibro = () => {
-        // TODO: crear pagina
-        // navigate('/admin/newlibro');
+        navigate('/admin/newlibro');
     }
 
     const verLibro = () => {
@@ -71,19 +70,23 @@ function LibrosAdmin(props) {
 
     return (
         <div>
+            {
+                !session.isAdmin && (
+                    <Navigate to="/libros" />
+                )
+            }
             <Banner />
             <Toaster position="top-right" />
             <div className='mx-5 mt-5'>
                 <h1>Libros</h1>
                 <div className='mx-5 mt-5'>
-                    <button onClick={newLibro} type="button" className="btn btn-outline-success  btn-sm">Añadir libro</button>
+                    <button onClick={newLibro} type="button" className="btn btn-outline-success btn-sm">Añadir libro</button>
                 </div>
                 <div className='mt-5'>
                     <table className="table">
                         <thead>
                             <tr>
                                 <th scope="col"></th>
-                                <th scope="col">Id</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Autor</th>
                                 <th scope="col"></th>
@@ -93,10 +96,8 @@ function LibrosAdmin(props) {
                             {
                                 typeof libros !== 'string' && (
                                     libros.map((libro, i) => {
-                                        // console.log(libro);
                                         return <tr key={i}>
                                             <th scope="row"></th>
-                                            <td>{libro._id}</td>
                                             <td>{libro.nombre}</td>
                                             <td>{libro.autor}</td>
                                             <td>

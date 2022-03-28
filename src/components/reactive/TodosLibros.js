@@ -35,15 +35,15 @@ function TodosLibros(props) {
             <h2 className='mb-5'>Libros</h2>
             {
                 withoutLibros && (
-                    <di>
+                    <div>
                         <br></br>
                         <h3>{withoutLibros}</h3>
-                    </di>
+                    </div>
                 )
             }
             <div className='row container margin-auto mb-5'>
                 {
-                    libros && (
+                    typeof libros !== 'string' && (
                         libros.map((libro, i) => {
                             return <div key={i} className="col-md-3 mb-5">
                                 <div className="card">

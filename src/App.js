@@ -10,6 +10,7 @@ import NavbarWithLogin from "./components/presentational/NavbarWithLogin";
 import Capitulo from "./components/reactive/Capitulo";
 import LibrosAdmin from "./components/reactive/LibrosAdmin";
 import NavbarWithLoginAdmin from "./components/presentational/NavbarWithLoginAdmin";
+import NewLibro from "./components/reactive/NewLibro";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="" element={<NavbarWithLoginAdmin />}>
           <Route path="admin/libros" element={<LibrosAdmin />} />
           <Route path="/admin/perfil" element={<PerfilUser />} />
+          <Route path="/admin/newlibro" element={<NewLibro />} />
         </Route>
       </Routes>
     </BrowserRouter >
