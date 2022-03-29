@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import toast, { Toaster } from 'react-hot-toast';
-import Swal from 'sweetalert2'
 
 import LibroService from "./../../services/libros.service"
 
@@ -17,15 +16,15 @@ function NewLibro(props) {
     const { session } = useSelector(state => state);
 
     const [formData, setFormData] = useState({
-        nameLibro: "Nombre libro",
-        autorLibro: "Autor libro",
-        fechaPublicacionLibro: "28/03/2022",
-        caraturaLibro: "https://1.bp.blogspot.com/-6XS2eu7oFsI/Vzsd_uEhFpI/AAAAAAAANL4/Tdso7Nxe8Dg9hQllgRbkou9OF1p728U8wCLcB/s1600/MISTBORN-5_TD.jpg",
-        descripcionLibro: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
+        nameLibro: "",
+        autorLibro: "",
+        fechaPublicacionLibro: "",
+        caraturaLibro: "",
+        descripcionLibro: "",
         pagLibro: ""
     });
 
-    const [capitulosLibro, setCapitulosLibro] = useState(['Cap 1', 'Cap 2']);
+    const [capitulosLibro, setCapitulosLibro] = useState([]);
     const [newCapitulo, setNewCapitulo] = useState("");
 
 
@@ -47,9 +46,10 @@ function NewLibro(props) {
                 capitulosLibro
             )
             if (response) {
-                toast.success('Libro Creado');
+                toast.success('Libro Creado.');
             }
         } catch (error) {
+            toast.error('El libro no se pudo crear.');
             console.log(error);
         }
     }

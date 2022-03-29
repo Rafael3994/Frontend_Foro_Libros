@@ -9,6 +9,56 @@ class UserService {
         return JSON.parse(localStorage.getItem('userToken'));;
     }
 
+    deleteUserByID(idUser) {
+        try {
+            return axios.delete(API_URL + "deleteuserbyid", {
+                headers: authHeader(),
+                data: {
+                    idUser: idUser
+                }
+            })
+                .then((response) => {
+                    return Promise.resolve(response.data);
+                }).catch(() => {
+                    return Promise.reject(false);
+                });
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
+    getAllUsers() {
+        try {
+            return axios.get(API_URL + 'allusers', { headers: authHeader() })
+                .then((res) => {
+                    return Promise.resolve(res.data);
+                }).catch((error) => {
+                    return Promise.reject(error);
+                });
+        } catch (error) {
+            return error;
+        }
+    }
+
+    addAdmin(idUser) {
+        try {
+            return axios.put(API_URL + 'newadmin', {
+                idUser: idUser
+            }, { headers: authHeader() }).then(response => {
+                if (response) {
+                    return Promise.resolve(response.data);
+                } else {
+                    return Promise.resolve(false);
+                }
+            }).catch((error) => {
+                return error;
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     async upadate(name, email, password, photo) {
         try {
             const res = await axios.put(API_URL + 'edituser', {
@@ -28,7 +78,7 @@ class UserService {
             return res;
 
         } catch (error) {
-
+            console.log(error);
         }
     }
 

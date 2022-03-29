@@ -11,6 +11,7 @@ import Capitulo from "./components/reactive/Capitulo";
 import LibrosAdmin from "./components/reactive/LibrosAdmin";
 import NavbarWithLoginAdmin from "./components/presentational/NavbarWithLoginAdmin";
 import NewLibro from "./components/reactive/NewLibro";
+import UserAdmin from "./components/reactive/UserAdmin";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="admin/libros" element={<LibrosAdmin />} />
           <Route path="/admin/perfil" element={<PerfilUser />} />
           <Route path="/admin/newlibro" element={<NewLibro />} />
+          <Route path="/admin/user" element={<UserAdmin />} />
         </Route>
       </Routes>
     </BrowserRouter >
