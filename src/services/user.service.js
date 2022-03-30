@@ -1,8 +1,8 @@
 import axios from "axios";
 import authHeader from './auth-header';
+import { URL_API } from "../variablesGlobales";
 
-// TODO: cambiar
-const API_URL = 'http://localhost:5000/user/';
+const API_URL = URL_API+'/user/';
 
 class UserService {
     getCurrentUser() {
