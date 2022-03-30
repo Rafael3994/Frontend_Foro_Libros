@@ -8,6 +8,10 @@ import {
     removeIsAdmin,
 } from "./../../services/redux/actions/session";
 
+import {
+    deleteUser,
+} from "./../../services/redux/actions/user";
+
 function NavbarWithLogin(props) {
 
     const navigate = useNavigate();
@@ -19,6 +23,7 @@ function NavbarWithLogin(props) {
         const result = await UserService.logout();
         if (result) {
             dispatch(removeIsAdmin());
+            dispatch(deleteUser());
             navigate('/');
         }
     }
