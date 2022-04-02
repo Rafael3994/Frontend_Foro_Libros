@@ -5,7 +5,7 @@ export const DELETE_USER = "DELETE_USER";
 
 export const SAVE_USER_IS_ADMIN = "SAVE_USER_IS_ADMIN";
 export const REMOVE_USER_IS_ADMIN = 'REMOVE_USER_IS_ADMIN';
-export const IS_TOKEN = "IS_TOKEN";
+export const SAVE_IS_TOKEN = "SAVE_IS_TOKEN";
 
 // export const NEW_PEDIDO_USER = "NEW_PEDIDO_USER";
 // export const NEW_RENTAL_SUCCESS = "NEW_RENTAL_SUCCESS";

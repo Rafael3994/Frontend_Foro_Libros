@@ -21,6 +21,7 @@ import {
 
 import {
     saveIsAdmin,
+    saveIsToken
 } from "./../../services/redux/actions/session.js";
 
 function LibrosAdmin(props) {

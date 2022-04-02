@@ -18,9 +18,8 @@ import {
 } from "./../../services/redux/actions/user";
 import {
     saveIsAdmin,
+    saveIsToken
 } from "./../../services/redux/actions/session";
-
-
 
 function Home(props) {
     const dispatch = useDispatch();
@@ -32,7 +31,7 @@ function Home(props) {
 
     useEffect(async () => {
         try {
-            await setIsToken(UserService.getCurrentUser() !== null);
+            setIsToken(UserService.getCurrentUser() !== null);
             if (isToken) {
                 let responseUser = await UserService.getUser();
                 if (responseUser.data) {
@@ -52,7 +51,7 @@ function Home(props) {
                 isLoaded && (
                     isToken
                         ?
-                        <Navigate to="/libros" />
+                        <Navigate to="/loadingpage" />
                         :
                         <div>
                             <NavbarWithoutLogin />
