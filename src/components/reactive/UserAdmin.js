@@ -123,7 +123,6 @@ function UserAdmin(props) {
                                 {
                                     isLogged && (
                                         usuarios.map((usuario, i) => {
-                                            // console.log(usuario);
                                             return <tr key={i}>
                                                 <td>{usuario.name}</td>
                                                 <td>{usuario.email}</td>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 
 import NavbarWithoutLogin from "./NavbarWithoutLogin";
@@ -14,16 +14,14 @@ import Footer from './Footer';
 import UserService from "./../../services/user.service";
 
 import {
-    saveUser,
+    saveUser
 } from "./../../services/redux/actions/user";
 import {
-    saveIsAdmin,
-    saveIsToken
+    saveIsAdmin
 } from "./../../services/redux/actions/session";
 
 function Home(props) {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const [isLoaded, setIsLoaded] = useState(false);
     //TODO: para mas adelante meter el isToken en la store

@@ -17,8 +17,6 @@ function NavbarWithLogin(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    
-
     const logout = async () => {
         const result = await UserService.logout();
         if (result) {
@@ -39,7 +37,6 @@ function NavbarWithLogin(props) {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarResponsive">
                         <ul className="navbar-nav ms-auto py-4 py-lg-0">
-                            {/* TODO: poner enlaces */}
                             <li className="nav-item nav-link px-lg-3 py-3 py-lg-4" ><Link to='/libros' className="navbar-brand mx-3">Libros</Link></li>
                             <li className="nav-item nav-link px-lg-3 py-3 py-lg-4" ><Link to="/perfil" className="navbar-brand mx-3">Perfil</Link></li>
                             <li className="nav-item nav-link px-lg-3 py-3 py-lg-4" ><a onClick={logout} className="pointer-cursor navbar-brand mx-3">Logout</a></li>

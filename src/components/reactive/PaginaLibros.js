@@ -27,7 +27,6 @@ function PaginaLibro(props) {
     const dispatch = useDispatch();
 
     const [isToken, setIsToken] = useState(UserService.getCurrentUser() !== null);
-    const [isLoaded, setIsLoaded] = useState(false);
     const { session } = useSelector(state => state);
 
     useEffect(async () => {
