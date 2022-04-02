@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 
 import NavbarWithoutLogin from "./NavbarWithoutLogin";
@@ -14,17 +14,14 @@ import Footer from './Footer';
 import UserService from "./../../services/user.service";
 
 import {
-    saveUser,
+    saveUser
 } from "./../../services/redux/actions/user";
 import {
-    saveIsAdmin,
+    saveIsAdmin
 } from "./../../services/redux/actions/session";
-
-
 
 function Home(props) {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const [isLoaded, setIsLoaded] = useState(false);
     //TODO: para mas adelante meter el isToken en la store
@@ -32,7 +29,7 @@ function Home(props) {
 
     useEffect(async () => {
         try {
-            await setIsToken(UserService.getCurrentUser() !== null);
+            setIsToken(UserService.getCurrentUser() !== null);
             if (isToken) {
                 let responseUser = await UserService.getUser();
                 if (responseUser.data) {
@@ -52,7 +49,7 @@ function Home(props) {
                 isLoaded && (
                     isToken
                         ?
-                        <Navigate to="/libros" />
+                        <Navigate to="/loadingpage" />
                         :
                         <div>
                             <NavbarWithoutLogin />

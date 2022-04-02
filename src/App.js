@@ -12,13 +12,14 @@ import LibrosAdmin from "./components/reactive/LibrosAdmin";
 import NavbarWithLoginAdmin from "./components/presentational/NavbarWithLoginAdmin";
 import NewLibro from "./components/reactive/NewLibro";
 import UserAdmin from "./components/reactive/UserAdmin";
+import LoadingPage from "./components/reactive/LoadingPage";
 
 function App() {
   return (
     <BrowserRouter >
       <Routes>
         <Route path="/" element={<Home />} />
-
+        <Route path="/loadingpage" element={<LoadingPage />} />
         <Route path="" element={<NavbarWithLogin />}>
           <Route index path="libros" element={<PaginaLibros />} />
           <Route path="perfil" element={<PerfilUser />} />

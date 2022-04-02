@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast';
 import Swal from 'sweetalert2'
 
@@ -7,15 +9,40 @@ import Footer from '../presentational/Footer';
 
 import UserService from "./../../services/user.service";
 
+import LibroService from "./../../services/libros.service"
+import {
+    saveLibros,
+} from "./../../services/redux/actions/libros";
+
+import {
+    saveUser,
+} from "./../../services/redux/actions/user.js";
+
+import {
+    saveIsAdmin,
+} from "./../../services/redux/actions/session.js";
+
 function UserAdmin(props) {
+
+    const dispatch = useDispatch();
+
+    const { session } = useSelector(state => state);
 
     const [usuarios, setUsuarios] = useState();
     const [isLogged, setIsLogged] = useState(false);
     const [isChangeComponent, setChangeComponent] = useState(false);
 
-
     useEffect(async () => {
         setChangeComponent(false)
+        let responseUser = await UserService.getUser();
+        if (responseUser.data) {
+            dispatch(saveUser(responseUser.data))
+            dispatch(saveIsAdmin(responseUser.data.roles.includes('admin')))
+        }
+        let response = await LibroService.allLibros();
+        if (response.length > 0) {
+            dispatch(saveLibros(response));
+        }
         setUsuarios(await UserService.getAllUsers());
         setIsLogged(true);
     }, [isChangeComponent]);
@@ -72,6 +99,11 @@ function UserAdmin(props) {
 
     return (
         <div>
+            {
+                !session.isAdmin && (
+                    <Navigate to="/loadingpage" />
+                )
+            }
             <div>
                 <Banner />
                 <Toaster position="top-right" />
@@ -91,7 +123,6 @@ function UserAdmin(props) {
                                 {
                                     isLogged && (
                                         usuarios.map((usuario, i) => {
-                                            // console.log(usuario);
                                             return <tr key={i}>
                                                 <td>{usuario.name}</td>
                                                 <td>{usuario.email}</td>
