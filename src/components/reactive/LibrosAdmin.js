@@ -13,6 +13,16 @@ import {
     saveLibros,
 } from "./../../services/redux/actions/libros";
 
+import UserService from "./../../services/user.service"
+
+import {
+    saveUser,
+} from "./../../services/redux/actions/user.js";
+
+import {
+    saveIsAdmin,
+} from "./../../services/redux/actions/session.js";
+
 function LibrosAdmin(props) {
 
     const dispatch = useDispatch();
@@ -23,6 +33,11 @@ function LibrosAdmin(props) {
 
     useEffect(async () => {
         try {
+            let responseUser = await UserService.getUser();
+            if (responseUser.data) {
+                dispatch(saveUser(responseUser.data))
+                dispatch(saveIsAdmin(responseUser.data.roles.includes('admin')))
+            }
             let response = await LibroService.allLibros();
             if (response.length > 0) {
                 dispatch(saveLibros(response));
@@ -72,7 +87,7 @@ function LibrosAdmin(props) {
         <div>
             {
                 !session.isAdmin && (
-                    <Navigate to="/libros" />
+                    <Navigate to="/loadingpage" />
                 )
             }
             <Banner />
