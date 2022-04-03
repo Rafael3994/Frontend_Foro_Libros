@@ -1,7 +1,7 @@
 import axios from "axios";
 import { URL_API } from "../variablesGlobales"
 
-const API_URL = URL_API+'lenguage/';
+const API_URL = URL_API+'/lenguage/';
 
 class LenguageService {
 
